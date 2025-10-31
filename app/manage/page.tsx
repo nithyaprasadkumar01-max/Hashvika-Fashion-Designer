@@ -7,7 +7,7 @@ import { Edit, Trash2 } from 'lucide-react';
 export default function ManageProducts() {
   const { products, deleteProduct } = useProducts();
 
-  const handleDelete = (id: number, name: string) => {
+  const handleDelete = (id: string | number, name: string) => {
     if (confirm(`Delete "${name}"?`)) {
       deleteProduct(id);
     }
@@ -47,7 +47,7 @@ export default function ManageProducts() {
                 </Link>
                 
                 <button
-                  onClick={() => handleDelete(Number(product.id), product.name)}
+                  onClick={() => handleDelete(product.id, product.name)}
                   className="flex-1 rounded bg-linear-to-r from-red-500 to-rose-500 px-4 py-2 text-white shadow-lg shadow-black/30 transition hover:from-red-500 hover:to-red-600 flex items-center justify-center gap-2"
                 >
                   <Trash2 className="w-4 h-4" />
