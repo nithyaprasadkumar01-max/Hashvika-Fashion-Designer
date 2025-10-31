@@ -1,0 +1,36 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "words": [
+    "Hari",
+    "Hashvika",
+    "Priya",
+    "Fahen",
+    "Pinterest",
+    "Instagram",
+    "aari",
+    "Aari",
+    "zari",
+    "Zardozi",
+    "ariwork",
+    "Ariwork",
+    "Banarasi",
+    "Chudithar",
+    "Churidhar",
+    "Churidar",
+    "churidar",
+    "dupatta",
+    "godets",
+    "Lehenga",
+    "lehenga",
+    "pallu",
+    "Unstitched",
+    "turbopack"
+  ],
+  "ignorePaths": [
+    "node_modules/**",
+    ".next/**",
+    "dist/**",
+    "build/**"
+  ]
+}
