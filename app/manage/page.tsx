@@ -26,6 +26,7 @@ export default function ManageProducts() {
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {products.map((product) => (
             <div key={product.id} className="rounded-2xl border border-[#2f3f73] bg-[#0a1230]/80 p-4 shadow-[0_20px_45px_rgba(6,12,32,0.55)]">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img 
                 src={product.image} 
                 alt={product.name}
@@ -46,7 +47,7 @@ export default function ManageProducts() {
                 </Link>
                 
                 <button
-                  onClick={() => handleDelete(product.id, product.name)}
+                  onClick={() => handleDelete(Number(product.id), product.name)}
                   className="flex-1 rounded bg-linear-to-r from-red-500 to-rose-500 px-4 py-2 text-white shadow-lg shadow-black/30 transition hover:from-red-500 hover:to-red-600 flex items-center justify-center gap-2"
                 >
                   <Trash2 className="w-4 h-4" />

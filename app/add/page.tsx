@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useProducts } from '@/context/ProductContext';
@@ -30,20 +30,17 @@ export default function AddProduct() {
     image: ''
   });
 
-  useEffect(() => {
+  const generatedId = useMemo(() => {
     const prefix = getCategoryPrefix(form.category);
     const categoryProducts = products.filter(p => p.category === form.category);
     const nextNumber = categoryProducts.length + 1;
-    const generatedId = `${prefix}${String(nextNumber).padStart(3, '0')}`;
-    setForm(prev => ({ ...prev, id: generatedId }));
+    return `${prefix}${String(nextNumber).padStart(3, '0')}`;
   }, [form.category, products]);
-  const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string>('');
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setImageFile(file);
       const reader = new FileReader();
       reader.onload = () => {
         setImagePreview(reader.result as string);
@@ -90,6 +87,8 @@ export default function AddProduct() {
               value={form.category}
               onChange={(e) => setForm({...form, category: e.target.value})}
               className="w-full rounded bg-[#0a1230]/80 p-3 text-[#f7f2e9] border border-[#2f3f73] focus:border-[#d4af37] focus:outline-none"
+              aria-label="Product Category"
+              title="Select Product Category"
               required
             >
               {allCategories.filter(c => c !== 'All').map(cat => (
@@ -102,8 +101,9 @@ export default function AddProduct() {
             <label className="mb-2 block text-sm font-medium text-[#c9cbe4]">Product ID (Auto-generated)</label>
             <input
               type="text"
-              value={form.id}
+              value={generatedId}
               readOnly
+              title="Auto-generated Product ID"
               className="w-full cursor-not-allowed rounded border border-[#38487f] bg-[#101a3f] p-3 font-mono font-semibold text-[#f4d98f]"
             />
           </div>
@@ -151,10 +151,13 @@ export default function AddProduct() {
               accept="image/*"
               onChange={handleImageUpload}
               className="w-full rounded border border-[#2f3f73] bg-[#0a1230]/80 p-3 text-[#f7f2e9] file:mr-4 file:rounded file:border-0 file:bg-[#d4af37] file:px-4 file:py-2 file:text-[#1a1f34] hover:file:bg-[#cfa433]"
+              aria-label="Upload Product Image"
+              title="Upload Product Image"
               required
             />
             {imagePreview && (
               <div className="mt-3">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={imagePreview} alt="Preview" className="h-48 w-full rounded border border-[#38487f] object-cover" />
               </div>
             )}
